@@ -18,7 +18,6 @@ export default class ItemList extends Component {
                 this.setState({
                     peopleList
                 });
-                console.log(peopleList)
             })
     }
 

@@ -7,32 +7,69 @@ export default class PeopleDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            personId: 3
+            person: null
         }
     }
 
+    componentDidMount() {
+        this.onPersonUpdate()
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.personId !== prevProps.personId) {
+            this.onPersonUpdate()
+        }
+    }
+
+    onPersonUpdate() {
+        const { personId } = this.props;
+        if (!personId) {
+            return;
+        }
+
+        this.swapiService.getPerson(personId)
+                .then(person => {
+                    this.setState({ person })
+                })
+    }
 
     render() {
-        const person = this.swapiService.getPerson(this.props.selectedPerson);
+
+        if (!this.state.person) {
+            return <span>Select a character</span>
+        }
+
+        const { birth_year, mass, eye_color, name, gender, height } = this.state.person;
+            
         return (
             <div className="card">
                 <div className="card-body person-card">
-                    <img src="https://vignette.wikia.nocookie.net/ru.starwars/images/e/eb/ArtooTFA2-Fathead.png/revision/latest?cb=20151106094927" alt="person"/>
+                    <img src={`https://starwars-visualguide.com/assets/img/characters/${this.props.personId}.jpg`} alt="person"/>
                     <div className="person-ul-wrapper">
-                            <h3 className="person-name">R2D2</h3>
+                            <h3 className="person-name">{name}</h3>
                             <ul className="person-props">
-                                <li>birth_Year</li>
-                                <li>-----</li>
+                                <li>Birth year</li>
+                                <li>{birth_year}</li>
                             </ul>
                             <hr/>
                             <ul className="person-props">
                                 <li>Mass</li>
-                                <li>-----</li>
+                                <li>{mass}</li>
                             </ul>
                             <hr/>
                             <ul className="person-props">
-                                <li>Homeworld</li>
-                                <li>Naboo</li>
+                                <li>Eye color</li>
+                                <li>{eye_color}</li>
+                            </ul>
+                            <hr/>
+                            <ul className="person-props">
+                                <li>Gender</li>
+                                <li>{gender}</li>
+                            </ul>
+                            <hr/>
+                            <ul className="person-props">
+                                <li>Height</li>
+                                <li>{height}</li>
                             </ul>
                             <hr/>
                         </div>

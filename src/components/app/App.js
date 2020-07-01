@@ -12,7 +12,7 @@ export default class App extends Component {
       selectedPerson: null
     }
 
-    this.onPersonSelected = this.onPersonSelected.bind(this)
+    this.onPersonSelected = this.onPersonSelected.bind(this);
   }
 
   onPersonSelected(id) {
