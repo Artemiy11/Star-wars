@@ -1,0 +1,30 @@
+.person-card {
+    display: flex;
+
+}
+
+.person-card img {
+    width: 170px;
+    border-radius: 4px;
+}
+
+.person-ul-wrapper {
+    margin-left: 15px;
+}
+
+.person-ul-wrapper hr {
+    background-color: #fff;
+}
+
+.person-props {
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.person-props li {
+    font-size: 18px;
+}

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './randomPlanet.css';
 import SwapiService from '../../services/swapiService';
+import Spinner from '../spinner';
+import ErrorIndicator from '../errorIndicator';
+import PlanetView from './planetView';
 
 export default class RandomPlanet extends Component {
     swapiService = new SwapiService();
@@ -9,48 +12,45 @@ export default class RandomPlanet extends Component {
         super(props);
 
         this.state = {
-            planet: {}
+            planet: {},
+            loading: true,
+            error: false
         }
 
         this.onPlanetUpdated = this.onPlanetUpdated.bind(this);
+        this.onError = this.onError.bind(this);
         this.updatePlanet();
+        setInterval(() => this.updatePlanet(), 5000);
     }
 
     onPlanetUpdated(planet) {
-        this.setState({ planet });
+        this.setState({ planet, loading: false });
+    }
+
+    onError(err) {
+        this.setState({ error: true, loading: false })
     }
 
     updatePlanet() {
         const id = Math.floor(Math.random() * 25) + 2;
         this.swapiService.getPlanet(id)
-            .then(this.onPlanetUpdated);
+            .then(this.onPlanetUpdated)
+            .catch(this.onError)
     }
 
     render() {
-        const { planet: { name, population, diameter, gravity, id } } = this.state;
+        const {  loading, error } = this.state;
+
+        const content = !(loading || error)? <PlanetView planet={this.state.planet}/> : null;
+        const loadingContent = loading ? <Spinner/> : null;
+        const errorContent = error ? <ErrorIndicator/> : null;
 
         return (
             <div className="card">
-                <div className="card-body">
-                    <img src={ `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt=""/>
-                    <div className="ulWrapper">
-                    <h3>{name}</h3>
-                    <ul>
-                        <li>Population</li>
-                        <li>{population}</li>
-                    </ul>
-                    <hr/>
-                    <ul>
-                        <li>Diameter</li>
-                        <li>{diameter}</li>
-                    </ul>
-                    <hr/>
-                    <ul>
-                        <li>Gravity</li>
-                        <li>{gravity}</li>
-                    </ul>
-                    <hr/>
-                    </div>
+                {loadingContent}
+                <div className="card-body planet-body">
+                    {content}
+                    {errorContent}
                 </div>
             </div>
         )

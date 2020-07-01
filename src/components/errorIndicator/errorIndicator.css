@@ -1,0 +1,17 @@
+.error {
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+}
+
+.error-image {
+    display: block;
+    margin: 0 auto;
+}
+
+.error-block {
+    width: 350px;
+    display: block;
+    margin: 0 auto;
+}

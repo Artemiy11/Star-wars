@@ -1,7 +1,9 @@
-ul {
-    
+.item-list {
+    text-align: center;
+    font-size: 18px;
 }
 
-li {
-    display: flex
+.item-list:hover {
+    color: rgb(184, 184, 184);
+    cursor: pointer;
 }
