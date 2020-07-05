@@ -19,8 +19,16 @@ export default class RandomPlanet extends Component {
 
         this.onPlanetUpdated = this.onPlanetUpdated.bind(this);
         this.onError = this.onError.bind(this);
+
+        this.interval = setInterval(() => this.updatePlanet(), 5000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval)
+    }
+
+    componentDidMount() {
         this.updatePlanet();
-        setInterval(() => this.updatePlanet(), 5000);
     }
 
     onPlanetUpdated(planet) {
@@ -39,20 +47,20 @@ export default class RandomPlanet extends Component {
     }
 
     render() {
-        const {  loading, error } = this.state;
+        const { loading, error } = this.state;
 
-        const content = !(loading || error)? <PlanetView planet={this.state.planet}/> : null;
-        const loadingContent = loading ? <Spinner/> : null;
-        const errorContent = error ? <ErrorIndicator/> : null;
+        const content = !(loading || error) ? <PlanetView planet={this.state.planet} /> : null;
+        const loadingContent = loading ? <Spinner /> : null;
+        const errorContent = error ? <ErrorIndicator /> : null;
 
         return (
-            <div className="card">
-                {loadingContent}
-                <div className="card-body planet-body">
-                    {content}
-                    {errorContent}
+                <div className="card">
+                    {loadingContent}
+                    <div className="card-body planet-body">
+                        {content}
+                        {errorContent}
+                    </div>
                 </div>
-            </div>
         )
     }
 }

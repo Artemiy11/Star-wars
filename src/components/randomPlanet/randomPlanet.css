@@ -3,7 +3,7 @@
 }
 
 .planet-body img {
-    height: 230px;
+    width: 230px;
     border-radius: 4px;
 }
 
@@ -31,4 +31,8 @@
 .spinner {
     display: block;
     margin: 0 auto;
+}
+
+.toggle-planet {
+    margin-top: 10px;
 }

@@ -3,9 +3,9 @@
 
 }
 
-.person-card img {
+.person-img {
     width: 230px;
-    height: 331px;
+    height: 345px;
     border-radius: 4px;
 }
 
@@ -28,4 +28,8 @@
 
 .person-props li {
     font-size: 18px;
+}
+
+.person-card {
+    padding: 0;
 }

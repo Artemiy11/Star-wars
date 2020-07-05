@@ -1,42 +1,40 @@
 import React, { Component } from 'react';
 import Header from '../header';
 import RandomPlanet from '../randomPlanet';
-import ItemList from '../itemlist';
-import PeopleDetails from '../peopleDetails';
+import PeoplePage from '../peoplePage/peoplePage';
+import BtnToggle from '../btnToggle';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import SwapiService from '../../services/swapiService';
 
 export default class App extends Component {
+  swapiService = new SwapiService();
 
   constructor() {
-    super();
+    super()
     this.state = {
-      selectedPerson: null
+      hiddenPlanet: false,
+      selectedPlanet: 1
     }
 
-    this.onPersonSelected = this.onPersonSelected.bind(this);
+    this.onTogglePlanet = this.onTogglePlanet.bind(this)
   }
 
-  onPersonSelected(id) {
-    this.setState({
-      selectedPerson: id
-    })
+  onTogglePlanet() {
+    this.setState({ hiddenPlanet: !this.state.hiddenPlanet })
   }
 
   render() {
+    const randomPlanet = this.state.hiddenPlanet ? null : <RandomPlanet />
+    console.log(this.swapiService.getAllStarships())
     return (
-      <>
+      <Router>
         <div className="container">
-          <Header/>
-          <RandomPlanet/>
-          <div className="row mt-4">
-            <div className="col-md-6">
-              <ItemList onPersonSelected={this.onPersonSelected}/>
-            </div>
-            <div className="col-md-6">
-              <PeopleDetails personId={this.state.selectedPerson}/>
-            </div>
-          </div>
+          <Header />
+          {randomPlanet}
+          <BtnToggle onTogglePlanet={this.onTogglePlanet} />
+          <Route path="/characters" component={PeoplePage} exact />
         </div>
-      </>
+      </Router>
     )
   }
 }
