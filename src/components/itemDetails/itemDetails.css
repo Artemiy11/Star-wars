@@ -4,24 +4,20 @@
 }
 
 .person-img {
-    width: 230px;
-    height: 345px;
+    width: 40%;
     border-radius: 4px;
 }
 
 .person-ul-wrapper {
     margin-left: 15px;
+    width: 100%;
 }
 
 .person-ul-wrapper hr {
     background-color: #fff;
 }
 
-.person-props {
-    width: 250px;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+.item-props {
     display: flex;
     justify-content: space-between;
 }
@@ -30,6 +26,6 @@
     font-size: 18px;
 }
 
-.person-card {
+/* .person-card {
     padding: 0;
-}
+} */
